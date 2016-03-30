@@ -45,7 +45,7 @@ with open("products.csv") as csvfile:
             matchingPrice = prices[position]
             print("Product {0} is {1}, and costs {2}".format(eachProd, matchingDescription, matchingPrice))
             quantity = int(input("How many of product {0} do you need?: ".format(eachProd)))
-            lineToAdd = eachProd + " " + matchingDescription + " " + str(matchingPrice) + " " + str(quantity) + " " + str(quantity*matchingPrice)
+            lineToAdd = eachProd + " " + matchingDescription + " " + str(matchingPrice) + " " + str(quantity) + " " + str(quantity*matchingPrice) + " \n"
             receipt.append(lineToAdd)
             # Change this to write to a csv file with a new line character at the end
         else:
