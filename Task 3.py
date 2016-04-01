@@ -4,8 +4,8 @@
 
 import csv
 
-# Open the CSV file and read into 'products'
-##with open("stock.csv") as csvfile:
+### Open the CSV file and read into 'products'
+##  with open("stock.csv") as csvfile:
 ##    stock = csv.reader(csvfile, delimiter=',')
 ##
 ##    # Empty lists to store each element of each row
@@ -29,7 +29,7 @@ import csv
 ##        currentLevels.append(currentLevel)
 ##        reOrderLevels.append(reOrderLevel)
 ##        targetLevels.append(targetLevel)
-##
+
 
 def printAllStock():
     with open("stock.csv") as csvfile:
@@ -59,5 +59,5 @@ def calcBelow():
     with open("stock.csv") as csvfile:
         stockLevels = csv.reader(csvfile, delimiter=',')
         for eachRow in stockLevels:
-            if eachRow[2] <= eachRow[3]:
-                print(eachRow[0])
+            if eachRow[2] < eachRow[3]:
+                print("Order new stock for {0}".format(eachRow[0]))
