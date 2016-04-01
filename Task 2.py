@@ -14,6 +14,7 @@ with open("products.csv") as csvfile:
     
     # Read each element of each row into separate lists
     for eachRow in products:
+        print(eachRow[0],eachRow[1],eachRow[2],sep='\t')
         gtin8 = eachRow[0]
         description = eachRow[1]
         price = float(eachRow[2])
@@ -23,14 +24,9 @@ with open("products.csv") as csvfile:
         descriptions.append(description)
         prices.append(price)
 
-    # Print statements to check the file reading work as expected
-    print(gtin8s)
-    print(descriptions)
-    print(prices)
-
     # Ask the user to input a GTIN-8 number to find
     toFind = []
-    toFind = input("Please enter a list of GTIN-8 numbers separated by commas: ").split(",")
+    toFind = input("\n Please enter a list of GTIN-8 numbers separated by commas: ").split(",")
     print("Searching for {0} products".format(len(toFind)))
 
     receipt = [] # Write this to a CSV file later...
@@ -46,11 +42,11 @@ with open("products.csv") as csvfile:
 
             # Confirm to user and ask about quanity of each product
             print("Product {0} is {1}, and costs {2}".format(eachProd, matchingDescription, matchingPrice))
-            quantity = int(input("H1479ow many of product {0} do you need?: ".format(eachProd)))
+            quantity = int(input("How many of product {0} do you need?: ".format(eachProd)))
 
             # Calculate the subtotal for each product
             subtotal = quantity*matchingPrice
-
+            
             # Keep a running total of the whole order
             receiptTotal += subtotal
 
@@ -74,4 +70,12 @@ with open("products.csv") as csvfile:
         writer = csv.writer(receiptFile)
         writer.writerows(receipt)
 
-    
+    # Print Receipt
+    with open("receipt.csv") as csvfile:
+        receipt = csv.reader(csvfile, delimiter=',')
+        print("")
+        print("RECEIPT")
+        for eachRow in receipt:
+            print(eachRow[0],eachRow[1],eachRow[2],eachRow[3],eachRow[4],sep='\t')
+
+    # Print Receipt
