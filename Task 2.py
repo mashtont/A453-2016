@@ -1,6 +1,5 @@
 # Task 2
 # Mr M Ashton
-# Testing GitHub Desktop sync
 
 import csv
 
@@ -32,25 +31,47 @@ with open("products.csv") as csvfile:
     # Ask the user to input a GTIN-8 number to find
     toFind = []
     toFind = input("Please enter a list of GTIN-8 numbers separated by commas: ").split(",")
-    listLength = len(toFind)
-    print("Searching for {0} products".format(listLength))
+    print("Searching for {0} products".format(len(toFind)))
 
-    receipt = [] # Change this to a CSV file
+    receipt = [] # Write this to a CSV file later...
+    receiptTotal = 0.00
     
     for eachProd in toFind:
+
         # If the GTIN8 numbers entered are in the list...
         if eachProd in gtin8s:
             position = gtin8s.index(eachProd)
             matchingDescription = descriptions[position]
             matchingPrice = prices[position]
+
+            # Confirm to user and ask about quanity of each product
             print("Product {0} is {1}, and costs {2}".format(eachProd, matchingDescription, matchingPrice))
-            quantity = int(input("How many of product {0} do you need?: ".format(eachProd)))
-            lineToAdd = eachProd + " " + matchingDescription + " " + str(matchingPrice) + " " + str(quantity) + " " + str(quantity*matchingPrice) + " \n"
-            receipt.append(lineToAdd)
-            # Change this to write to a csv file with a new line character at the end
+            quantity = int(input("H1479ow many of product {0} do you need?: ".format(eachProd)))
+
+            # Calculate the subtotal for each product
+            subtotal = quantity*matchingPrice
+
+            # Keep a running total of the whole order
+            receiptTotal += subtotal
+
+            # Write each element back to a receiptLine list
+            receiptLine = [eachProd,matchingDescription,matchingPrice,quantity,subtotal]
+            
+            # Append each receiptLine to the receipt 
+            receipt.append(receiptLine)
+
         else:
             print("Product", eachProd, "is not a valid product")
-            receipt.append("Product not found")
-            # Change this to write to a csv file with a new line character at the end
+            receiptLine = [eachProd,"Product not found",0.00,0,0.00]
+            receipt.append(receiptLine)
 
-    print(receipt) # Change this print the contents of the new csv file
+    # Append the total cost of the order to the receipt
+    totalLine = ["","TOTAL COST OF ORDER","","",receiptTotal]
+    receipt.append(totalLine)
+
+    # Write the contents of the receipt list(of lists) to a file
+    with open("receipt.csv",mode="w",newline='') as receiptFile:
+        writer = csv.writer(receiptFile)
+        writer.writerows(receipt)
+
+    
