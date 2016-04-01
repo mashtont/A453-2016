@@ -77,5 +77,3 @@ with open("products.csv") as csvfile:
         print("RECEIPT")
         for eachRow in receipt:
             print(eachRow[0],eachRow[1],eachRow[2],eachRow[3],eachRow[4],sep='\t')
-
-    # Print Receipt
